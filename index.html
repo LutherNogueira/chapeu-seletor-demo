@@ -3,627 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapéu Seletor - Folclore Brasileiro</title>
+    <title>Chapéu Seletor - Escola de Magia</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Uncial+Antiqua&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #0f0520, #1a0b2e, #2d1b69, #0f0520);
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
             background-size: 400% 400%;
-            animation: mysticalGradient 10s ease infinite;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            color: #e6d7ff;
+            padding: 20px;
             position: relative;
+            overflow-x: hidden;
+            background-attachment: fixed;
         }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(2px 2px at 160px 30px, #fff, transparent);
-            background-repeat: repeat;
-            background-size: 200px 100px;
-            animation: twinkle 4s linear infinite;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        @keyframes mysticalGradient {
+        
+        @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+        
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
-
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
         .container {
             text-align: center;
-            max-width: 800px;
-            padding: 20px;
             position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            padding-bottom: 40px;
         }
-
+        
         .title {
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 40px rgba(75, 0, 130, 0.6);
-            background: linear-gradient(45deg, #9370db, #e6d7ff, #dda0dd, #ba55d3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: mysticShimmer 3s ease-in-out infinite alternate;
+            font-family: 'Uncial Antiqua', cursive;
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin: 20px 0 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: titleGlow 2s ease-in-out infinite alternate;
         }
-
-        @keyframes mysticShimmer {
-            0% { 
-                filter: brightness(1) hue-rotate(0deg);
-                text-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 40px rgba(75, 0, 130, 0.6);
-            }
-            100% { 
-                filter: brightness(1.4) hue-rotate(20deg);
-                text-shadow: 0 0 30px rgba(186, 85, 211, 0.9), 0 0 60px rgba(138, 43, 226, 0.7);
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2rem;
             }
         }
-
-        .subtitle {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            font-style: italic;
+        
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255,215,0,0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px rgba(255,215,0,0.6); }
         }
-
+        
         .hat-container {
             position: relative;
-            margin: 40px 0;
+            display: inline-block;
+            margin: 40px 0 60px 0;
         }
-
-        .hat {
+        
+        .sorting-hat {
             width: 200px;
-            height: 200px;
-            margin: 0 auto;
+            height: auto;
             cursor: pointer;
-            position: relative;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
         }
-
-        .hat:hover {
+        
+        @media (max-width: 480px) {
+            .sorting-hat {
+                width: 160px;
+            }
+        }
+        
+        .sorting-hat:hover {
             transform: scale(1.05);
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.5));
         }
-
-        .hat svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 20px rgba(147, 112, 219, 0.6)) drop-shadow(0 0 40px rgba(138, 43, 226, 0.3));
-        }
-
-        .hat.thinking {
-            animation: hatThinking 0.5s ease-in-out infinite;
-        }
-
-        @keyframes hatThinking {
-            0%, 100% { 
-                transform: rotate(-3deg) scale(1);
-                filter: drop-shadow(0 0 25px rgba(147, 112, 219, 0.8)) drop-shadow(0 0 50px rgba(138, 43, 226, 0.5));
-            }
-            25% { 
-                transform: rotate(2deg) scale(1.03);
-                filter: drop-shadow(0 0 30px rgba(186, 85, 211, 0.9)) drop-shadow(0 0 60px rgba(147, 112, 219, 0.6));
-            }
-            50% { 
-                transform: rotate(3deg) scale(0.97);
-                filter: drop-shadow(0 0 35px rgba(218, 160, 221, 0.8)) drop-shadow(0 0 70px rgba(186, 85, 211, 0.5));
-            }
-            75% { 
-                transform: rotate(-1deg) scale(1.02);
-                filter: drop-shadow(0 0 28px rgba(147, 112, 219, 0.7)) drop-shadow(0 0 55px rgba(138, 43, 226, 0.4));
-            }
-        }
-
-        .floating-text {
+        
+        .thinking-bubble {
             position: absolute;
-            font-size: 1.5em;
-            font-weight: bold;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.9);
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            opacity: 0;
             pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            min-width: 100px;
+            z-index: 20;
+        }
+        
+        @media (max-width: 480px) {
+            .thinking-bubble {
+                font-size: 0.9rem;
+                padding: 10px 16px;
+                top: -60px;
+            }
+        }
+        
+        .thinking-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid rgba(255,255,255,0.9);
+        }
+        
+        .result-container {
             opacity: 0;
-            text-shadow: 0 0 10px rgba(147, 112, 219, 0.8), 0 0 20px rgba(138, 43, 226, 0.6);
-            z-index: 10;
-            background: linear-gradient(45deg, #9370db, #dda0dd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .floating-text.animate {
-            animation: floatUp 2s ease-out forwards;
-        }
-
-        @keyframes floatUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px) scale(0.8);
-            }
-            20% {
-                opacity: 1;
-                transform: translateY(0px) scale(1);
-            }
-            80% {
-                opacity: 1;
-                transform: translateY(-30px) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.8);
-            }
-        }
-
-        .result {
-            margin-top: 40px;
-            opacity: 0;
-            transform: scale(0.8);
+            transform: translateY(50px);
             transition: all 0.8s ease;
-        }
-
-        .result.show {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .tribe-name {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px currentColor, 0 0 30px currentColor;
-        }
-
-        .tribe-description {
-            font-size: 1.3em;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            font-style: italic;
-            text-shadow: 0 0 8px rgba(147, 112, 219, 0.5);
-        }
-
-        .tribe-characteristics {
-            font-size: 1.1em;
-            line-height: 1.5;
-            background: rgba(15, 5, 32, 0.6);
+            margin-top: 40px;
             padding: 20px;
             border-radius: 15px;
-            border: 2px solid rgba(147, 112, 219, 0.4);
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.3), inset 0 0 20px rgba(147, 112, 219, 0.1);
-        }
-
-        .curupira { color: #32cd32; text-shadow: 0 0 15px #32cd32, 0 0 30px #228b22; }
-        .saci { color: #ff6347; text-shadow: 0 0 15px #ff6347, 0 0 30px #ff4500; }
-        .iara { color: #87ceeb; text-shadow: 0 0 15px #87ceeb, 0 0 30px #4682b4; }
-        .boitata { color: #ffd700; text-shadow: 0 0 15px #ffd700, 0 0 30px #ffb347; }
-
-        .reset-btn {
-            margin-top: 30px;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            background: linear-gradient(45deg, #4b0082, #6a0dad, #8a2be2);
-            color: #e6d7ff;
-            border: 2px solid rgba(147, 112, 219, 0.5);
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.4), 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-            font-family: 'Georgia', serif;
-            text-shadow: 0 0 10px rgba(230, 215, 255, 0.8);
-        }
-
-        .reset-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(138, 43, 226, 0.6), 0 8px 25px rgba(0,0,0,0.4);
-            background: linear-gradient(45deg, #6a0dad, #8a2be2, #9370db);
-        }
-
-        .stats {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(15, 5, 32, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 0.9em;
-            border: 1px solid rgba(147, 112, 219, 0.4);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+            background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
         }
-
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
+        
+        .result-container.show {
+            opacity: 1;
+            transform: translateY(0);
         }
-
+        
+        .house-image {
+            width: 280px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 480px) {
+            .house-image {
+                width: 240px;
+            }
+        }
+        
+        .house-name {
+            font-family: 'Uncial Antiqua', cursive;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        @media (max-width: 480px) {
+            .house-name {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .house-description {
+            font-size: 1.1rem;
+            max-width: 400px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+            opacity: 0.9;
+            color: #f0f0f0;
+        }
+        
+        @media (max-width: 480px) {
+            .house-description {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+        }
+        
+        .house-stats {
+            font-size: 0.9rem;
+            margin-top: 20px;
+            opacity: 0.8;
+            color: #cccccc;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(45deg, #4a4a4a, #666666);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-family: 'Cinzel', serif;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            min-height: 50px;
+        }
+        
+        @media (max-width: 480px) {
+            .reset-btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+                margin-top: 20px;
+            }
+        }
+        
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #555555, #777777);
+        }
+        
+        /* Cores específicas das casas */
+        .aqualis { color: #4a90e2; text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(74,144,226,0.5); }
+        .ignavia { color: #e74c3c; text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(231,76,60,0.5); }
+        .silvarum { color: #27ae60; text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(39,174,96,0.5); }
+        .venturia { color: #87ceeb; text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(135,206,235,0.5); }
+        .animaris { color: #9b59b6; text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(155,89,182,0.5); }
+        
+        /* Animações específicas */
+        @keyframes hatShake {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-5deg) scale(1.05); }
+            50% { transform: rotate(5deg) scale(1.1); }
+            75% { transform: rotate(-3deg) scale(1.05); }
+        }
+        
+        @keyframes hatThinking {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .hat-shaking {
+            animation: hatShake 0.8s ease-in-out 3;
+        }
+        
+        .hat-thinking {
+            animation: hatThinking 1.5s ease-in-out infinite;
+        }
+        
+        .magic-particles {
+            position: absolute;
+            pointer-events: none;
+        }
+        
         .particle {
             position: absolute;
             width: 4px;
             height: 4px;
-            background: linear-gradient(45deg, #9370db, #dda0dd);
+            background: #ffd700;
             border-radius: 50%;
-            animation: sparkle 3s linear infinite;
-            box-shadow: 0 0 10px currentColor;
+            animation: particleFloat 2s ease-out forwards;
         }
-
-        @keyframes sparkle {
+        
+        @keyframes particleFloat {
             0% {
-                opacity: 0;
-                transform: translateY(0) rotate(0deg);
-            }
-            10% {
                 opacity: 1;
-            }
-            90% {
-                opacity: 1;
+                transform: translateY(0) scale(1);
             }
             100% {
                 opacity: 0;
-                transform: translateY(-100vh) rotate(360deg);
+                transform: translateY(-100px) scale(0.5);
             }
         }
     </style>
 </head>
 <body>
+    <div class="stars" id="stars"></div>
+    
     <div class="container">
-        <h1 class="title">🎩 Chapéu Seletor 🎩</h1>
-        <p class="subtitle">Descubra sua tribo do folclore brasileiro!</p>
+        <h1 class="title">Chapéu Seletor</h1>
         
         <div class="hat-container">
-            <div class="hat" id="magicHat" onclick="selectTribe()">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Sombra do chapéu -->
-                    <ellipse cx="100" cy="190" rx="45" ry="8" fill="#000033" opacity="0.6"/>
-                    
-                    <!-- Aba do chapéu -->
-                    <ellipse cx="100" cy="170" rx="75" ry="12" fill="url(#hatBrimGradient)"/>
-                    
-                    <!-- Cone do chapéu -->
-                    <path d="M 70 170 Q 85 60, 100 40 Q 115 60, 130 170 Z" fill="url(#hatBodyGradient)"/>
-                    
-                    <!-- Detalhes decorativos -->
-                    <rect x="85" y="160" width="30" height="8" rx="4" fill="url(#bandGradient)"/>
-                    
-                    <!-- Estrelas no chapéu -->
-                    <g fill="#ffd700" opacity="0.9">
-                        <polygon points="90,120 92,125 97,125 93,129 95,134 90,131 85,134 87,129 83,125 88,125" />
-                        <polygon points="105,90 106,93 109,93 107,95 108,98 105,96 102,98 103,95 101,93 104,93" />
-                        <polygon points="115,130 116,132 118,132 117,134 118,136 115,135 112,136 113,134 112,132 114,132" />
-                    </g>
-                    
-                    <!-- Lua crescente -->
-                    <path d="M 75 100 Q 85 95, 85 110 Q 78 105, 75 100" fill="#e6e6fa" opacity="0.8"/>
-                    
-                    <!-- Brilho mágico principal -->
-                    <circle cx="100" cy="80" r="3" fill="#9370db" opacity="0.9">
-                        <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
-                        <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
-                    </circle>
-                    
-                    <!-- Brilhos secundários -->
-                    <circle cx="110" cy="110" r="2" fill="#dda0dd" opacity="0.7">
-                        <animate attributeName="opacity" values="0.3;0.9;0.3" dur="1.8s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="95" cy="140" r="1.5" fill="#ba55d3" opacity="0.6">
-                        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2.2s" repeatCount="indefinite"/>
-                    </circle>
-                    
-                    <!-- Partículas flutuantes -->
-                    <circle cx="120" cy="70" r="1" fill="#e6d7ff">
-                        <animateTransform attributeName="transform" type="translate" 
-                                        values="0,0; 5,-10; -3,-20; 2,-30" dur="4s" repeatCount="indefinite"/>
-                        <animate attributeName="opacity" values="0;1;1;0" dur="4s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="80" cy="85" r="0.8" fill="#9370db">
-                        <animateTransform attributeName="transform" type="translate" 
-                                        values="0,0; -3,-8; 4,-15; -2,-25" dur="3.5s" repeatCount="indefinite"/>
-                        <animate attributeName="opacity" values="0;1;1;0" dur="3.5s" repeatCount="indefinite"/>
-                    </circle>
-                    
-                    <!-- Gradientes -->
-                    <defs>
-                        <linearGradient id="hatBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#2d1b69;stop-opacity:1" />
-                            <stop offset="50%" style="stop-color:#1a0b2e;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#0f0520;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="hatBrimGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#1a0b2e;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#0f0520;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="bandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#9370db;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ba55d3;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
-            
-            <div class="particles" id="particles"></div>
+            <div class="thinking-bubble" id="thinkingBubble"></div>
+            <img src="./images/chapeu-seletor.png" alt="Chapéu Seletor" class="sorting-hat" id="sortingHat">
         </div>
-
-        <div class="result" id="result">
-            <div class="tribe-name" id="tribeName"></div>
-            <div class="tribe-description" id="tribeDescription"></div>
-            <div class="tribe-characteristics" id="tribeCharacteristics"></div>
-            <button class="reset-btn" onclick="resetSelection()">🎩 Sortear Novamente</button>
+        
+        <div class="result-container" id="resultContainer">
+            <img src="" alt="" class="house-image" id="houseImage">
+            <h2 class="house-name" id="houseName"></h2>
+            <p class="house-description" id="houseDescription"></p>
+            <div class="house-stats" id="houseStats"></div>
+            <button class="reset-btn" onclick="resetSelection()">Sortear Novamente</button>
         </div>
-    </div>
-
-    <div class="stats" id="stats">
-        <div><strong>Estatísticas:</strong></div>
-        <div id="statsContent"></div>
     </div>
 
     <script>
-        const tribes = {
-            curupira: {
-                name: "Tribo do Curupira",
-                color: "#228B22",
-                description: "Guardião da floresta, protetor da natureza e dos animais!",
-                characteristics: "Você é corajoso, protetor e tem uma conexão especial com a natureza. Sempre defende os mais fracos e luta pela preservação do meio ambiente. Seus pés para trás confundem os inimigos, mas seu coração aponta sempre para o bem!",
-                words: ["Protetor", "Natureza", "Guardião", "Floresta", "Coragem"]
+        // Dados das casas
+        const houses = {
+            aqualis: {
+                name: "Casa Aqualis",
+                element: "Água",
+                characteristics: "Intuição, empatia, adaptabilidade e serenidade",
+                animal: "Serpente-Marinha",
+                colors: ["azul", "prata"],
+                image: "./images/casa-aqualis.png",
+                class: "aqualis",
+                count: 0
             },
-            saci: {
-                name: "Tribo do Saci",
-                color: "#FF4500",
-                description: "Travesso, esperto e cheio de energia contagiante!",
-                characteristics: "Você é brincalhão, inteligente e sempre encontra uma forma criativa de resolver problemas. Gosta de pregar peças inofensivas e tem um senso de humor único. Sua energia é contagiante e você consegue animar qualquer ambiente!",
-                words: ["Travesso", "Esperto", "Brincalhão", "Energia", "Criativo"]
+            ignavia: {
+                name: "Casa Ignavia", 
+                element: "Fogo",
+                characteristics: "Coragem, paixão, determinação e energia criativa",
+                animal: "Fênix",
+                colors: ["vermelho", "dourado"],
+                image: "./images/casa-ignavia.png",
+                class: "ignavia",
+                count: 0
             },
-            iara: {
-                name: "Tribo da Iara",
-                color: "#4682B4",
-                description: "Sereia encantadora, sábia e misteriosa das águas!",
-                characteristics: "Você possui uma sabedoria profunda e uma beleza que vem de dentro. É intuitivo, empático e tem uma conexão especial com as emoções. Sua voz tem o poder de acalmar e inspirar, e você é um conselheiro natural para os outros.",
-                words: ["Sábia", "Encantadora", "Misteriosa", "Intuitiva", "Inspiradora"]
+            silvarum: {
+                name: "Casa Silvarum",
+                element: "Terra", 
+                characteristics: "Força, estabilidade, lealdade e resiliência",
+                animal: "Urso",
+                colors: ["verde", "marrom"],
+                image: "./images/casa-silvarum.png",
+                class: "silvarum",
+                count: 0
             },
-            boitata: {
-                name: "Tribo do Boitatá",
-                color: "#FFD700",
-                description: "Serpente de fogo, guardiã dos campos e da justiça!",
-                characteristics: "Você é justo, determinado e tem uma força interior impressionante. Protege aqueles que não podem se defender e luta contra as injustiças. Sua presença ilumina os caminhos escuros e você é uma fonte de esperança para muitos.",
-                words: ["Justo", "Protetor", "Determinado", "Iluminado", "Esperança"]
+            venturia: {
+                name: "Casa Venturia",
+                element: "Vento",
+                characteristics: "Liberdade, inteligência, criatividade e espírito aventureiro", 
+                animal: "Grifo",
+                colors: ["branco", "azul claro"],
+                image: "./images/casa-venturia.png",
+                class: "venturia",
+                count: 0
+            },
+            animaris: {
+                name: "Casa Animaris",
+                element: "Alma",
+                characteristics: "Sabedoria, espiritualidade, equilíbrio e conexão com o invisível",
+                animal: "Lobo",
+                colors: ["roxo", "preto"],
+                image: "./images/casa-animaris.png", 
+                class: "animaris",
+                count: 0
             }
         };
 
-        let tribeStats = {
-            curupira: 0,
-            saci: 0,
-            iara: 0,
-            boitata: 0
-        };
+        // Mensagens de pensamento do chapéu
+        const thinkingMessages = [
+            "Hmm...",
+            "Interessante...", 
+            "Deixe-me ver...",
+            "Qual será?",
+            "Pensando...",
+            "Ah, sim...",
+            "Muito curioso...",
+            "Quase lá...",
+            "Posso sentir..."
+        ];
 
         let isSelecting = false;
 
-        // Carregar estatísticas salvas
-        const savedStats = JSON.parse(localStorage.getItem('tribeStats') || '{"curupira":0,"saci":0,"iara":0,"boitata":0}');
-        tribeStats = savedStats;
-        updateStats();
-
-        function selectTribe() {
-            if (isSelecting) return;
-            
-            isSelecting = true;
-            const hat = document.getElementById('magicHat');
-            const result = document.getElementById('result');
-            
-            // Esconder resultado anterior
-            result.classList.remove('show');
-            
-            // Animar chapéu
-            hat.classList.add('thinking');
-            
-            // Criar partículas
-            createParticles();
-            
-            // Mostrar palavras flutuantes
-            showFloatingWords();
-            
-            // Após 3 segundos, mostrar resultado
-            setTimeout(() => {
-                const selectedTribe = getBalancedTribe();
-                showResult(selectedTribe);
-                hat.classList.remove('thinking');
-                isSelecting = false;
-            }, 3000);
-        }
-
-        function getBalancedTribe() {
-            const total = Object.values(tribeStats).reduce((a, b) => a + b, 0);
-            const tribeKeys = Object.keys(tribes);
-            
-            if (total === 0) {
-                // Primeira seleção é aleatória
-                return tribeKeys[Math.floor(Math.random() * tribeKeys.length)];
-            }
-            
-            // Encontrar tribos com menor representação
-            const minCount = Math.min(...Object.values(tribeStats));
-            const underrepresentedTribes = tribeKeys.filter(tribe => tribeStats[tribe] === minCount);
-            
-            // 70% de chance de selecionar uma tribo sub-representada
-            if (Math.random() < 0.7 && underrepresentedTribes.length > 0) {
-                return underrepresentedTribes[Math.floor(Math.random() * underrepresentedTribes.length)];
-            } else {
-                // 30% de chance de seleção completamente aleatória
-                return tribeKeys[Math.floor(Math.random() * tribeKeys.length)];
+        // Criar estrelas no fundo
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
             }
         }
 
-        function showFloatingWords() {
-            const words = ["Analisando...", "Pensando...", "Curupira?", "Saci?", "Iara?", "Boitatá?", "Hmm...", "Quase lá...", "Decidindo..."];
+        // Função para seleção equilibrada
+        function getBalancedHouse() {
+            const houseKeys = Object.keys(houses);
+            const minCount = Math.min(...houseKeys.map(key => houses[key].count));
+            const availableHouses = houseKeys.filter(key => houses[key].count === minCount);
+            return availableHouses[Math.floor(Math.random() * availableHouses.length)];
+        }
+
+        // Criar partículas mágicas
+        function createMagicParticles() {
             const container = document.querySelector('.hat-container');
-            
-            words.forEach((word, index) => {
-                setTimeout(() => {
-                    createFloatingText(word, container);
-                }, index * 300);
-            });
-        }
-
-        function createFloatingText(text, container) {
-            const floatingText = document.createElement('div');
-            floatingText.className = 'floating-text';
-            floatingText.textContent = text;
-            
-            // Posição aleatória ao redor do chapéu
-            const angle = Math.random() * 2 * Math.PI;
-            const distance = 120 + Math.random() * 100;
-            const x = Math.cos(angle) * distance;
-            const y = Math.sin(angle) * distance;
-            
-            floatingText.style.left = `calc(50% + ${x}px)`;
-            floatingText.style.top = `calc(50% + ${y}px)`;
-            floatingText.style.transform = 'translate(-50%, -50%)';
-            
-            container.appendChild(floatingText);
-            
-            // Animar
-            setTimeout(() => {
-                floatingText.classList.add('animate');
-            }, 10);
-            
-            // Remover após animação
-            setTimeout(() => {
-                if (floatingText.parentNode) {
-                    floatingText.parentNode.removeChild(floatingText);
-                }
-            }, 2000);
-        }
-
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 2 + 's';
-                    particle.style.animationDuration = (2 + Math.random() * 2) + 's';
-                    
-                    particlesContainer.appendChild(particle);
+                    particle.style.left = Math.random() * 200 + 'px';
+                    particle.style.top = Math.random() * 200 + 'px';
+                    container.appendChild(particle);
                     
                     setTimeout(() => {
                         if (particle.parentNode) {
                             particle.parentNode.removeChild(particle);
                         }
-                    }, 4000);
+                    }, 2000);
                 }, i * 100);
             }
         }
 
-        function showResult(tribeKey) {
-            const tribe = tribes[tribeKey];
-            const result = document.getElementById('result');
-            const tribeName = document.getElementById('tribeName');
-            const tribeDescription = document.getElementById('tribeDescription');
-            const tribeCharacteristics = document.getElementById('tribeCharacteristics');
+        // Função principal de seleção
+        async function selectHouse() {
+            if (isSelecting) return;
             
-            // Atualizar estatísticas
-            tribeStats[tribeKey]++;
-            localStorage.setItem('tribeStats', JSON.stringify(tribeStats));
-            updateStats();
+            isSelecting = true;
+            const hat = document.getElementById('sortingHat');
+            const bubble = document.getElementById('thinkingBubble');
+            const resultContainer = document.getElementById('resultContainer');
             
-            // Mostrar resultado
-            tribeName.textContent = tribe.name;
-            tribeName.style.color = tribe.color;
-            tribeName.className = `tribe-name ${tribeKey}`;
+            // Esconder resultado anterior
+            resultContainer.classList.remove('show');
             
-            tribeDescription.textContent = tribe.description;
-            tribeCharacteristics.textContent = tribe.characteristics;
+            // Animação inicial do chapéu
+            hat.classList.add('hat-shaking');
+            createMagicParticles();
             
-            result.classList.add('show');
+            // Mostrar mensagens de pensamento
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    const message = thinkingMessages[Math.floor(Math.random() * thinkingMessages.length)];
+                    bubble.textContent = message;
+                    bubble.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        bubble.style.opacity = '0';
+                    }, 800);
+                }, i * 1000);
+            }
             
-            // Mostrar palavras da tribo
+            // Depois de 3 segundos, parar de balançar e começar a "pensar"
             setTimeout(() => {
-                showTribeWords(tribe.words);
+                hat.classList.remove('hat-shaking');
+                hat.classList.add('hat-thinking');
+            }, 3000);
+            
+            // Após 6 segundos, revelar o resultado
+            setTimeout(() => {
+                hat.classList.remove('hat-thinking');
+                bubble.style.opacity = '0';
+                
+                // Selecionar casa equilibrada
+                const selectedHouseKey = getBalancedHouse();
+                const selectedHouse = houses[selectedHouseKey];
+                selectedHouse.count++;
+                
+                // Mostrar resultado
+                showResult(selectedHouse);
+                
+                setTimeout(() => {
+                    isSelecting = false;
+                }, 1000);
+            }, 6000);
+        }
+
+        // Mostrar resultado
+        function showResult(house) {
+            const resultContainer = document.getElementById('resultContainer');
+            const houseImage = document.getElementById('houseImage');
+            const houseName = document.getElementById('houseName');
+            const houseDescription = document.getElementById('houseDescription');
+            const houseStats = document.getElementById('houseStats');
+            
+            houseImage.src = house.image;
+            houseImage.alt = house.name;
+            
+            houseName.textContent = house.name;
+            houseName.className = 'house-name ' + house.class;
+            
+            houseDescription.innerHTML = `
+                <strong>Elemento:</strong> ${house.element}<br>
+                <strong>Características:</strong> ${house.characteristics}<br>
+                <strong>Animal Totêmico:</strong> ${house.animal}
+            `;
+            
+            const totalSorted = Object.values(houses).reduce((sum, h) => sum + h.count, 0);
+            houseStats.innerHTML = `Membros selecionados: ${house.count} | Total de seleções: ${totalSorted}`;
+            
+            resultContainer.classList.add('show');
+            
+            // Rolar suavemente para o resultado após um pequeno delay
+            setTimeout(() => {
+                scrollToResult();
             }, 500);
         }
 
-        function showTribeWords(words) {
-            const container = document.querySelector('.container');
+        // Função para rolar suavemente até o resultado
+        function scrollToResult() {
+            const resultContainer = document.getElementById('resultContainer');
+            const containerTop = resultContainer.offsetTop;
+            const windowHeight = window.innerHeight;
+            const containerHeight = resultContainer.offsetHeight;
             
-            words.forEach((word, index) => {
-                setTimeout(() => {
-                    createFloatingText(word, container);
-                }, index * 400);
+            // Calcular posição ideal para centralizar o resultado na tela
+            const targetPosition = containerTop - (windowHeight - containerHeight) / 2;
+            
+            window.scrollTo({
+                top: Math.max(0, targetPosition),
+                behavior: 'smooth'
             });
         }
-
+        // Reset da seleção
         function resetSelection() {
-            const result = document.getElementById('result');
-            result.classList.remove('show');
-        }
-
-        function updateStats() {
-            const statsContent = document.getElementById('statsContent');
-            const total = Object.values(tribeStats).reduce((a, b) => a + b, 0);
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.classList.remove('show');
             
-            if (total === 0) {
-                statsContent.innerHTML = '<div>Nenhuma seleção ainda</div>';
-                return;
-            }
-            
-            let statsHTML = '';
-            Object.entries(tribeStats).forEach(([tribe, count]) => {
-                const percentage = ((count / total) * 100).toFixed(1);
-                const tribeName = tribes[tribe].name.replace('Tribo do ', '').replace('Tribo da ', '');
-                statsHTML += `<div>${tribeName}: ${count} (${percentage}%)</div>`;
+            // Rolar suavemente de volta ao topo
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-            
-            statsContent.innerHTML = statsHTML;
         }
 
-        // Efeito de partículas contínuas no fundo
-        setInterval(() => {
-            if (!isSelecting && Math.random() < 0.15) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = (5 + Math.random() * 5) + 's';
-                particle.style.opacity = Math.random() * 0.6 + 0.2;
-                
-                // Cores místicas variadas
-                const colors = ['#9370db', '#dda0dd', '#ba55d3', '#e6d7ff', '#8a2be2'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.background = color;
-                particle.style.boxShadow = `0 0 10px ${color}`;
-                
-                document.getElementById('particles').appendChild(particle);
-                
-                setTimeout(() => {
-                    if (particle.parentNode) {
-                        particle.parentNode.removeChild(particle);
-                    }
-                }, 10000);
-            }
-        }, 1500);
+        // Event listeners
+        document.getElementById('sortingHat').addEventListener('click', selectHouse);
+        
+        // Inicializar
+        createStars();
+        
+        // Preload de imagens (fallback para quando as imagens não existirem)
+        const imageNames = ['chapeu-seletor.png', 'casa-aqualis.png', 'casa-ignavia.png', 'casa-silvarum.png', 'casa-venturia.png', 'casa-animaris.png'];
+        imageNames.forEach(imageName => {
+            const img = new Image();
+            img.src = './images/' + imageName;
+            img.onerror = function() {
+                // Se a imagem não carregar, usar um placeholder ou emoji
+                if (imageName === 'chapeu-seletor.png') {
+                    document.getElementById('sortingHat').style.fontSize = '150px';
+                    document.getElementById('sortingHat').innerHTML = '🎩';
+                    document.getElementById('sortingHat').style.width = 'auto';
+                    document.getElementById('sortingHat').style.height = 'auto';
+                }
+            };
+        });
     </script>
 </body>
 </html>
